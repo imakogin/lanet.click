@@ -183,30 +183,125 @@ Template Name: SMM-SEO-ADS
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('.effective').each(function() {
-            const h2 = $(this).find('h2');
-            if (!h2.text().trim()) {
-                $(this).css('display', 'none');
-            }
-        });
-    });
-</script>
+<div class="prop-ssp-wrapper">
+    <div class="prop-ssp">
+        <h2 class="prop-h2"><?php the_field('zagolovok_prop_ssp'); ?></h2>
+        <p class="prop-p"><?php the_field('pidzagolovok_prop_ssp'); ?></p>
+        <div class="slider-container swiper prop-ssp-slide">
+            <div class="slider8 swiper-wrapper">
+                <?php if (have_rows('slide_prop_ssp')) : ?>
+                    <?php while (have_rows('slide_prop_ssp')) : the_row(); ?>
+                        <div class="slide8 swiper-slide" data-show-image="true">
+                            <img loading="lazy" class="prop-img" src="<?php the_sub_field('ikonka_sli_ssp'); ?>" alt="">
+                            <h3><a class="prop-h3" href="<?php the_sub_field('link_sli_prosp_ssp'); ?>"><?php the_sub_field('tekst_sli_prosp_ssp'); ?></a></h3>
+                        </div>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
 
-<div class="prop-ssp">
-    <h2 class="prop-h2"><?php the_field('zagolovok_prop_ssp'); ?></h2>
-    <p class="prop-p"><?php the_field('pidzagolovok_prop_ssp'); ?></p>
-    <div class="slider-container">
-        <div class="slider8">
-            <?php if (have_rows('slide_prop_ssp')) : ?>
-                <?php while (have_rows('slide_prop_ssp')) : the_row(); ?>
-                    <div class="slide8" data-show-image="true">
-                        <img loading="lazy" class="prop-img" src="<?php the_sub_field('ikonka_sli_ssp'); ?>" alt="">
-                        <h3><a class="prop-h3" href="<?php the_sub_field('link_sli_prosp_ssp'); ?>"><?php the_sub_field('tekst_sli_prosp_ssp'); ?></a></h3>
-                    </div>
-                <?php endwhile; ?>
-            <?php endif; ?>
+
+<div class="etapy-ssp">
+    <div class="container">
+        <h2><?php the_field('zag_et_ssp'); ?></h2>
+        <p class="etapy-pz"><?php the_field('pidzag_et_ssp'); ?></p>
+        <?php
+        $etaps = get_field('etaps');
+        //var_dump($etaps);
+
+        $odd = array_filter($etaps, function ($key) {
+            return $key % 2 !== 0;
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Фильтрация элементов с четными индексами
+        $even = array_filter($etaps, function ($key) {
+            return $key % 2 === 0;
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Переиндексация массивов для корректного отображения индексов
+        $odd = array_values($odd);
+        $even = array_values($even);
+        //print_r('<pre>');
+        //print_r($odd);
+        //print_r('</pre>');
+        //print_r('<pre>');
+        //print_r($even);
+        //print_r('</pre>');
+        ?>
+        <div id="blocks-pc">
+            <div class="row">
+                <div class="col-md-1-1 left">
+                    <?php
+                    $indextwo = 2;
+                    foreach ($odd as $od) { ?>
+                        <div class="block-content">
+                            <div class="trih-zag">
+                                <p class="trih-num"><?php echo $indextwo; ?>.</p>
+                            </div>
+                            <div>
+                                <h4 class="trih-h4"><?php echo $od['title']; ?></h4>
+                                <p class="trih-p2"><?php echo $od['text']; ?></p>
+                            </div>
+                        </div>
+                    <?php
+                        $indextwo += 2;
+                    }
+                    ?>
+                </div>
+                <div class="col-md-1-2">
+                    <img loading="lazy" src="/wp-content/uploads/2023/08/howwew.svg" alt="">
+                </div>
+                <div class="blocks-pc-mob">
+                    <?php
+                    $indexmob = 1;
+                    foreach ($etaps as $etap) { ?>
+                        <div class="block-content">
+                            <div class="trih-zag">
+                                <p class="trih-num"><?php echo $indexmob; ?>.</p>
+                            </div>
+                            <div>
+                                <h4 class="trih-h4"><?php echo $etap['title']; ?></h4>
+                                <p class="trih-p2"><?php echo $etap['text']; ?></p>
+                            </div>
+                        </div>
+                    <?php
+                        $indexmob++;
+                    }
+                    ?>
+                </div>
+                <div class="col-md-1-1">
+                    <?php
+                    $indextwo = 1;
+                    foreach ($even as $ev) { ?>
+                        <div class="block-content">
+                            <div class="trih-zag">
+                                <p class="trih-num"><?php echo $indextwo; ?>.</p>
+                            </div>
+                            <div>
+                                <h4 class="trih-h4"><?php echo $ev['title']; ?></h4>
+                                <p class="trih-p2"><?php echo $ev['text']; ?></p>
+                            </div>
+                        </div>
+                    <?php
+                        $indextwo += 2;
+                    }
+                    ?>
+                </div>
+                <?php
+                $data_id = 4;
+                if ('en' == $current_lang) {
+                    $data_id = 6;
+                } elseif ('ru' == $current_lang) {
+                    $data_id = 5;
+                }
+                ?>
+            </div>
+            <a class="cta-b" data-form-id="<?php echo $data_id; ?>" href="#" data-form-name="blocks-pc-main-page">
+                    <?php echo __('Contact us', 'idol'); ?>
+                </a>
         </div>
     </div>
 </div>
@@ -253,191 +348,8 @@ Template Name: SMM-SEO-ADS
         </div>
     </div>
 </div>
-<div class="mob-only">
-    <div class="tarif-ssp">
-        <h2 class="tarif-h2"><?php the_field('zagolovok_tsina'); ?></h2>
-        <div class="container">
-            <div class="swiper-container tarif-slider556">
-                <div class="swiper-wrapper">
-                    <?php if (have_rows('czina_tsina')) : ?>
-                        <?php while (have_rows('czina_tsina')) : the_row(); ?>
-                            <div class="swiper-slide">
-                                <div class="col-md-455">
-                                    <?php if (get_sub_field('top_taryf') == 'yes') : ?>
-                                        <img loading="lazy" class="top-tarif-i" src="<?php _e('/wp-content/uploads/2023/10/top-def.svg', 'lanetclick'); ?>" alt="">
-                                    <?php endif; ?>
-                                    <div class="tarif">
-                                        <img loading="lazy" class="tarif-image-ppc" src="/wp-content/uploads/2023/03/sotahov.svg" alt="" style="display:none;">
-                                        <h3><?php the_sub_field('nazva_taryfu_tsina'); ?></h3>
-                                        <div class="services">
-                                            <?php
-                                            $counter = 0;
-                                            if (have_rows('poslugy_shho_vhodyat_tsina')) :
-                                                while (have_rows('poslugy_shho_vhodyat_tsina')) : the_row();
-                                                    $is_visible = $counter < 5 ? '' : ' style="display:none;"';
-                                            ?>
-                                                    <div class="service" <?php echo $is_visible; ?>>
-                                                        <span><?php echo strip_tags(get_sub_field('mitka_posluha_tsina')); ?></span> <?php echo strip_tags(get_sub_field('posluga_tsina')); ?>
-                                                    </div>
-                                            <?php
-                                                    $counter++;
-                                                endwhile;
-                                            endif;
-                                            ?>
-                                        </div>
-                                        <div class="description" style="display:none;"><?php the_sub_field('tekst_dodatkovyj_tsina'); ?></div>
-                                        <span class="details-toggle"><?php _e('More', 'lanetclick'); ?></span>
-                                        <div class="price"><?php the_sub_field('vartist_tsina'); ?></div>
-                                        <div><a class="order-btn cta-b" data-form-name="tarif-ssp"><?php _e('Order', 'lanetclick'); ?></a></div>
-                                        <span class="hide-toggle" style="display:none;"><?php _e('Hide', 'lanetclick'); ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endwhile; ?>
-                    <?php endif; ?>
-                </div>
-                <!-- Add Pagination -->
-                <div class="tar-pagination"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<script defer>
-    jQuery(document).ready(function($) {
-        var mySwiper = new Swiper('.tarif-slider556', {
-            // Optional parameters
-            direction: 'horizontal',
-            loop: true,
-            slidesPerView: 1, // Display only one slide at a time
-            spaceBetween: 0, // No space between slides
-            centeredSlides: false,
-            mousewheel: true,
 
 
-            // If we need pagination
-            pagination: {
-                el: '.tar-pagination',
-                clickable: true,
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        function initSlickSlider() {
-            if ($(window).width() < 700) {
-                $('.opti-slider').slick({
-                    // Настройки Slick Slider
-                    dots: true,
-                    infinite: false,
-                    speed: 300,
-                    arrows: false,
-                    adaptiveHeight: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                });
-            } else if ($(window).width() > 700) {
-                if ($('.opti-slider').hasClass('slick-initialized')) {
-                    $('.opti-slider').slick('unslick');
-                }
-            }
-        }
-
-        initSlickSlider(); // Инициализация при загрузке страницы
-
-        $(window).resize(function() {
-            initSlickSlider(); // Инициализация при изменении размера окна
-        });
-    });
-</script>
-<div class="opty-copy">
-    <h3><?php the_field('h3_opti_copy'); ?></h3>
-    <p><?php the_field('p_opti_copy'); ?></p>
-    <div class="container">
-        <div class="row opti-slider">
-            <?php if (have_rows('poslugy_opti_copy')) : ?>
-                <?php while (have_rows('poslugy_opti_copy')) : the_row(); ?>
-                    <div class="col-md-4">
-                        <div class="optim-copy">
-                            <div class="o-c"><img loading="lazy" class="opty-image" src="/wp-content/uploads/2023/03/sotahov.svg" alt=""></div>
-                            <h4><?php the_sub_field('nazva_poslugy_opti_copy'); ?></h4>
-                            <p><?php the_sub_field('opis_poslugy_opti_copy'); ?></p>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="etapy-ssp">
-    <h2><?php the_field('zag_et_ssp'); ?></h2>
-    <p class="etapy-pz"><?php the_field('pidzag_et_ssp'); ?></p>
-    <div class="hardline-sota">
-        <img loading="lazy" class="line-etap" src="/wp-content/uploads/2023/07/arrowetap.svg" alt="">
-        <img loading="lazy" class="line-etap-m" src="/wp-content/uploads/2023/07/arrowetapm.svg" alt="">
-        <div class="row">
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap1'); ?></p>
-            </div>
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap2'); ?></p>
-            </div>
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap3'); ?></p>
-            </div>
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap4'); ?></p>
-            </div>
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap5'); ?></p>
-            </div>
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap6'); ?></p>
-            </div>
-            <div class="col-md-7-1">
-                <img loading="lazy" class="sota-etap" src="/wp-content/uploads/2023/03/sotahov.svg" alt="">
-                <p class="etap-nam"><?php the_field('etap7'); ?></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="effective">
-        <h2><?php the_field('h2_effect_ppc'); ?></h2>
-        <p class="efect-pz"><?php the_field('h2_effect_ppc_pz'); ?></p>
-        <div class="container">
-            <div class="row">
-                <?php if (have_rows('col_effect_ppc')) : ?>
-                    <?php while (have_rows('col_effect_ppc')) : the_row(); ?>
-                        <div class="col-md-4-ppc">
-                            <div class="effect-slide">
-                                <h3><?php the_sub_field('col_effect_ppc_z'); ?></h3>
-                                <p class="efect-p"><?php the_sub_field('col_effect_ppc_pz'); ?></p>
-                                <a href="<?php the_sub_field('col_effect_ppc_link'); ?>"><img loading="lazy" class="effect-image" src="/wp-content/uploads/2023/05/arrowbl.svg" alt=""></a>
-                            </div>
-                        </div>
-                    <?php endwhile; ?>
-                <?php endif; ?>
-            </div>
-        </div>
-        <button class="btn-effective"><?php the_field('tekst_na_knopczi'); ?></button>
-    </div>
-</div>
 <div class="vidhuki">
     <h2 class="case-h2"><?php the_field('h2_vidguki', 'options'); ?></h2>
     <p class="vidhuk-p"><?php the_field('vidguki_opis', 'options'); ?></p>
@@ -494,12 +406,6 @@ Template Name: SMM-SEO-ADS
     </script>
 
 </div>
-<div class="prosdod">
-    <h3><?php the_field('h3_pros_dod'); ?></h3>
-    <div class="prosdod-p">
-        <p><?php the_field('tekst_pros_dod'); ?></p>
-    </div>
-</div>
 <div class="cta">
     <div class="container">
         <div class="row">
@@ -516,207 +422,6 @@ Template Name: SMM-SEO-ADS
         </div>
     </div>
 </div>
-<section>
-    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-            <?php the_content(); ?>
-    <?php endwhile;
-    endif; ?>
-</section>
-<?php get_footer(); ?>
-<script>
-    $(document).ready(function() {
-        $('.cta').each(function() {
-            var $etapNam = $(this).find('.cta-z');
-            if ($etapNam.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.prop-ssp').each(function() {
-            var $etapNam = $(this).find('.prop-h2');
-            if ($etapNam.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.nab-rish').each(function() {
-            var $etapNam = $(this).find('.cta-z');
-            if ($etapNam.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.prosdod').each(function() {
-            var $h3 = $(this).find('h3');
-            if ($h3.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.opty-copy').each(function() {
-            var $h3 = $(this).find('h3');
-            if ($h3.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.etapy-ssp').each(function() {
-            var $h2 = $(this).find('h2');
-            if ($h2.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.faq').each(function() {
-            var $h2 = $(this).find('h2');
-            if ($h2.text().trim() === '') {
-                $(this).hide();
-            }
-        });
-    });
-</script>
-<script>
-    jQuery(document).ready(function($) {
-
-        function adjustImageHeight() {
-            var maxHeight = 0;
-
-            $('.sota-etap').each(function() {
-                var thisHeight = $(this).offset().top + $(this).height();
-                maxHeight = (thisHeight > maxHeight) ? thisHeight : maxHeight;
-            });
-
-            var parentOffset = $('.line-etap-m').parent().offset().top;
-            $('.line-etap-m').height(maxHeight - parentOffset + 30);
-        }
-
-        adjustImageHeight();
-
-        $(window).on('resize', adjustImageHeight);
-    });
-</script>
-<script>
-    var resizeTimer;
-    var baseWidth = 1439;
-    var sliderSettings = {}; // Объект для хранения настроек слайдера
-
-    function setPadding() {
-        var basePadding = 70;
-        var targetPadding = 680;
-        var targetWidth = 2800;
-
-        var windowWidth = window.innerWidth;
-
-        var newPadding;
-        if (windowWidth <= baseWidth) {
-            newPadding = basePadding;
-        } else if (windowWidth >= targetWidth) {
-            newPadding = targetPadding;
-        } else {
-            var widthRatio = (windowWidth - baseWidth) / (targetWidth - baseWidth);
-            newPadding = basePadding + widthRatio * (targetPadding - basePadding);
-        }
-
-        setNewPadding(newPadding);
-        reinitializeSlickSliders();
-
-        if (windowWidth <= baseWidth) {
-            resetPadding();
-        }
-    }
-
-    function setNewPadding(newPadding) {
-        var sspDivs = document.querySelectorAll('.scscr-ssp, .scscr-ssp2, .tarif-ssp, .opty-copy, .prop-ssp, .etapy-ssp, .vidhuki, .faq, .prosdod, .cta, .contact-f, .cont-s, .menu-f, .s-menu-1, .s-menu-2');
-        sspDivs.forEach(function(div) {
-            var computedStyle = getComputedStyle(div);
-            var paddingTop = computedStyle.paddingTop;
-            var paddingBottom = computedStyle.paddingBottom;
-            div.style.padding = paddingTop + ' ' + newPadding + 'px ' + paddingBottom + ' ' + newPadding + 'px';
-        });
-    }
-
-    function resetPadding() {
-        var sspDivs = document.querySelectorAll('.scscr-ssp, .scscr-ssp2, .tarif-ssp, .opty-copy, .prop-ssp, .etapy-ssp, .vidhuki, .faq, .prosdod, .cta, .contact-f, .cont-s, .menu-f, .s-menu-1, .s-menu-2');
-        sspDivs.forEach(function(div) {
-            div.style.padding = "";
-        });
-    }
-
-    function reinitializeSlickSliders() {
-        $('.slick-slider').each(function() {
-            var $slider = $(this);
-            var sliderId = $slider.attr('id'); // Получаем id слайдера
-            if ($slider.hasClass('slick-initialized')) {
-                sliderSettings[sliderId] = $slider[0].slick.options; // Сохраняем настройки слайдера
-                $slider.slick('unslick'); // Удаляем слайдер
-            }
-            $slider.slick(sliderSettings[sliderId]); // Переинициализируем слайдер с сохраненными настройками
-        });
-    }
-
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(setPadding, 500);
-    });
-
-    window.addEventListener('load', setPadding);
-</script>
-<script>
-    jQuery(document).ready(function($) {
-        function checkDisplayProperty() {
-            // Проверка свойства display элемента с классом opty-copy
-            if ($('.opty-copy').css('display') === 'none') {
-                // Удаление слайдера
-                if ($('.opti-slider').hasClass('slick-initialized')) {
-                    $('.opti-slider').slick('unslick');
-                }
-            } else {
-                // Инициализация слайдера, если он ещё не инициализирован
-                if (!$('.opti-slider').hasClass('slick-initialized')) {
-                    $('.opti-slider').slick();
-                }
-            }
-        }
-
-        // Проверка свойства при загрузке страницы
-        checkDisplayProperty();
-
-        // Проверка свойства при изменении размера окна
-        $(window).on('resize', function() {
-            checkDisplayProperty();
-        });
-    });
-</script>
-
 <?php
-$h3_min_height = get_field('css-min-height');
-if ($h3_min_height) :
-?>
-    <style>
-        @media (min-width: 768px) {
-            .tarif h3 {
-                min-height: <?php echo $h3_min_height; ?>px;
-            }
-        }
-    </style>
-<?php
-endif;
+get_footer();
 ?>

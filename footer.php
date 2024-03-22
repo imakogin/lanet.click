@@ -345,20 +345,6 @@
         });
     });
 </script>
-<script>
-    const textareas = document.querySelectorAll('textarea');
-
-    function preventEnterKey(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            return false;
-        }
-    }
-    textareas.forEach(textarea => {
-        textarea.addEventListener('keydown', preventEnterKey);
-    });
-</script>
-
 <?php //wp_footer();
 ?>
 

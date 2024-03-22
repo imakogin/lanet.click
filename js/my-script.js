@@ -260,7 +260,6 @@ let before_send = function (classNameString) {
     $(document).on('click', classNameString, function (event) {
         event.preventDefault(); 
         $form_event = $(this).hasClass('cta-b') ? true : false;
-        
         var selectedOptions = [];
         if( $('.select-list').length !== 0 ){
 
@@ -293,6 +292,7 @@ let before_send = function (classNameString) {
         });
 
         if ($form_event) {
+            console.log( $('.formpp form'));
             $('.formpp form').attr('data-form-id', ID);
             $('.formpp form').attr('data-form-name', form_name);
             $('.formpp form').attr('data-form-helpers', selectedOptions);
@@ -535,38 +535,7 @@ $('.sliderssp').slick({
     ]
    });
    
-   $('.slider8').slick({
-    dots: true,
-    vertical: false,
-    centerMode: false,
-    arrows: false,
-    autoplay: false,
-    infinite: false,
-    adaptiveHeight: true,
-    variableWidth: true,
-    autoplaySpeed: 3000,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    responsive: [
-       {
-         breakpoint: 1360,
-         settings: {
-           slidesToShow: 4,
-           arrows: false,
-           slidesToScroll: 1
-         }
-       },
-       {
-         breakpoint: 768,
-         settings: {
-           slidesToShow: 1,
-           arrows: false,
-           slidesToScroll: 1
-         }
-       }
-    ]
-   });
-   
+
    $('.sliderf').slick({
     dots: true,
     arrows: false,
@@ -690,10 +659,38 @@ $('.sliderssp').slick({
          slidesToScroll: 1
        },
        // Когда ширина окна >= 426px
-       426: {
+       320: {
          slidesPerView: 1,
          slidesToScroll: 1
        }
     }
    });
+   
+   new Swiper(".prop-ssp-slide", {
+    spaceBetween: 30,
+    slidesPerView: 4,
+    pagination: {
+       el: ".swiper-pagination",
+       clickable: true,
+    },
+    breakpoints: {
+       // Когда ширина окна >= 1100px
+       1100: {
+         slidesPerView: 4,
+         slidesToScroll: 1
+       },
+       // Когда ширина окна >= 768px
+       768: {
+         slidesPerView: 3,
+         slidesToScroll: 1
+       },
+       // Когда ширина окна >= 426px
+       320: {
+         slidesPerView: 1,
+         slidesToScroll: 1
+       }
+    },
+    
+   });
+
    

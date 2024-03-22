@@ -27,6 +27,36 @@ Author: Lanet Click corp
 }
 
 @media only screen and (max-width: 1024px) {
+
+	.prop-ssp-wrapper{
+		padding: 60px 15px;
+	}
+	.masthev-ssp .row,
+	.container{
+		padding: 0 15px;
+	}
+
+	#blocks-pc .row{
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: center;
+		gap: 15px;
+	}
+
+	#blocks-pc .col-md-1-2{
+		width: auto;
+		margin: 0;
+	}
+
+	#blocks-pc .col-md-1-1{
+		display: none;
+	}
+
+	#blocks-pc .blocks-pc-mob{
+		display: flex;
+		max-width: 385px;
+	}
+
 	.ad_nab_content p {
 		font-size: 16px;
 		font-weight: 900;
@@ -161,6 +191,11 @@ Author: Lanet Click corp
 }
 
 @media only screen and (max-width: 768px) {
+
+	#blocks-pc img{
+		width: 98px;
+	}
+
 	.btn-nab-case,
 	.ad_nab .swiper-pagination{
 		margin-top: 40px;
@@ -1606,18 +1641,6 @@ Author: Lanet Click corp
 		display: none;
 	}
 
-	.prop-ssp {
-		display: none;
-	}
-
-	.mob-only .tarif-ssp {
-		display: block;
-	}
-
-	.mob-only .prop-ssp {
-		display: block;
-	}
-
 	.slide8[data-show-image="true"]:hover::before {
 		display: none;
 	}
@@ -1938,6 +1961,11 @@ Author: Lanet Click corp
 		display: block;
 	}
 
+	.partners-slider .swiper-slide{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	.desktop-table {
 		display: none;
 	}
@@ -1993,10 +2021,6 @@ Author: Lanet Click corp
 		padding: 0 16px 60px;
 	}
 
-	.prop-ssp {
-		display: none;
-	}
-
 	.prop-ssp .swiper-slide:hover::before {
 		content: none;
 	}
@@ -2004,7 +2028,7 @@ Author: Lanet Click corp
 	.prop-ssp .swiper-slide:hover::after {
 		content: none;
 	}
-
+	
 	.tarif-slider555 .swiper-slide {
 		box-sizing: border-box !important;
 		padding: 11px;
@@ -3886,13 +3910,6 @@ Author: Lanet Click corp
 	width: 100%;
 }
 
-#blocks-mob {
-	display: block;
-}
-
-#blocks-pc {
-	display: none;
-}
 
 .trih-h4 {
 	font-family: 'HeliosExt';
@@ -3999,7 +4016,6 @@ Author: Lanet Click corp
 .btn-case,
 .cta-b {
 	width: 100%;
-	display: block;
 }
 
 .pro-nas {
@@ -4549,10 +4565,6 @@ Author: Lanet Click corp
 	color: #181818;
 	letter-spacing: -0.015em;
 	padding: 0 0 40px 0;
-}
-
-.masthev-ssp {
-	padding: 0;
 }
 
 .col-md-m-2 h4 {
@@ -5456,9 +5468,6 @@ Author: Lanet Click corp
 		display: block;
 	}
 
-	#blocks-pc {
-		display: none;
-	}
 
 	.trih-h4 {
 		font-family: 'HeliosExt';
@@ -5585,8 +5594,7 @@ Author: Lanet Click corp
 		padding-top: 20px;
 	}
 
-	.btn-case,
-	.cta-b {
+	.btn-case{
 		width: auto;
 		display: block;
 	}
